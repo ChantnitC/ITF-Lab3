@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(9, 137, 241);
+    padding: 7px;
+    column-gap: 15px;
+    justify-content: end;
+}
+.nav-item{
+    color: rgb(1, 0, 8);
+}
+.nav-item-container{
+    display: flex;
+}

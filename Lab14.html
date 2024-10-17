@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <center>
+        <h1>My Rii7e Book</h1>
+    <div id="profile" class ="profile">
+        <div class="notify">
+            <p>1</p>
+        </div>
+    </div>
+    <h2 id="username">Username, hi</h1>
+    <label>Set username</label><input id="input-name" type="text"><button onclick="setName()">set</button>
+    <label>Set profile url</label><input id="input-url" type="text"><button onclick="setImg()">set</button>
+
+    <h3>Phone Number List</h3>
+    <input id = "num" type="hidden">
+    <input id = "namey" type="text">
+    <input id = "phonenum" type="text"><button onclick="updateRow()">add</button>
+    <button onclick="saveCSV()">export</button>
+    <table id="table">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Tel</th>
+        </tr>
+    </table>
+    </center>
+    <script>
+        const name = document.getElementById("username");
+        const inputName = document.getElementById("input-name");
+        const profile = document.getElementById("profile");
+        const inputUrl = document.getElementById("input-url");
+        const table = document.getElementById("table");
+        const num = document.getElementById("num");
+        const namey = document.getElementById("namey");
+        const phone = document.getElementById("phone");
+
+        let count = 0;
+        var phonenumber = [];
+        const addBtn = document.getElementById("add")
+        const saveButton = document.getElementById("export")
+        console.log(saveButton.value)
+
+        function setName(){
+            name.textContent ="Have A Nice Day, " + inputName.value;
+            inputName.value = "";
+        }
+        function setImg(){
+            profile.style.backgroundImage = "url(" + inputUrl.value + ")";
+        }
+        function updateRow(){
+            count += 1;
+            const row = document.createElement("tr");
+            const cellNo = document.createElement("td");
+            const cellName = document.createElement("td");
+            const cellTel = document.createElement("td");
+            cellNo.textContent = count;
+            cellName.textContent = document.getElementById("namey").value;
+            cellTel.textContent = document.getElementById("phonenum").value;
+            row.appendChild(cellNo);
+            row.appendChild(cellName);
+            row.append(cellTel);
+            const table = document.getElementById("table");
+            table.appendChild(row);
+
+            let arr = []
+            arr.cellNo(count);
+            arr.cellName(document.getElementById("namey").value);
+            arr.cellName(document.getElementById("phonenum").value);
+            phonenumber.push(arr);
+            console.log(phonenum)
+
+            document.getElementById("namey").value = "";
+            document.getElementById("phonenum").value = "";
+        }
+        function saveCSV(){
+            const csvContent = phonenumber.map(row => row.join(",")).join("\n");
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "data.csv");
+            link.style.visibility = "hidden";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
